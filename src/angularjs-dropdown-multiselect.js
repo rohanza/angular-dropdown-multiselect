@@ -230,11 +230,12 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
 
                 $scope.selectAll = function () {
                     $scope.deselectAll({sendEvent: false});
-                    $scope.externalEvents.onSelectAll();
 
                     angular.forEach($scope.options, function (value) {
                         $scope.selectItem(value[$scope.settings.idProp], {sendEvent: false});
                     });
+
+                    $scope.externalEvents.onSelectAll();
                 };
 
                 $scope.deselectAll = function (params) {
@@ -243,14 +244,14 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                         params.sendEvent = true;
                     }
 
-                    if (params.sendEvent) {
-                        $scope.externalEvents.onDeselectAll();
-                    }
-
                     if ($scope.singleSelection) {
                         clearObject($scope.selectedModel);
                     } else {
                         $scope.selectedModel.splice(0, $scope.selectedModel.length);
+                    }
+
+                    if (params.sendEvent) {
+                        $scope.externalEvents.onDeselectAll();
                     }
                 };
 
