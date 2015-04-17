@@ -176,8 +176,12 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                     return groupValue;
                 };
 
+                var isSelectedModelNotEmpty = function() {
+                    return $scope.selectedModel.length > 0 || (angular.isObject($scope.selectedModel) && _.keys($scope.selectedModel).length > 0);
+                };
+
                 $scope.getButtonText = function () {
-                    if ($scope.settings.dynamicTitle && ($scope.selectedModel.length > 0 || (angular.isObject($scope.selectedModel) && _.keys($scope.selectedModel).length > 0))) {
+                    if ($scope.settings.dynamicTitle && isSelectedModelNotEmpty()) {
                         if ($scope.settings.smartButtonMaxItems > 0) {
                             var itemsText = [];
 
@@ -265,6 +269,10 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                     return exists;
                 };
 
+                var isSelectionLimitNotExceeded = function() {
+                    return $scope.settings.selectionLimit === 0 || $scope.selectedModel.length < $scope.settings.selectionLimit;
+                };
+
                 $scope.selectItem = function(id, params) {
                     var params = params || {};
                     if (angular.isUndefined(params.sendEvent)) {
@@ -280,7 +288,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                         return;
                     }
                     var exists = objExists(id);
-                    if (!exists && ($scope.settings.selectionLimit === 0 || $scope.selectedModel.length < $scope.settings.selectionLimit)) {
+                    if (!exists && isSelectionLimitNotExceeded()) {
                         $scope.selectedModel.push(finalObj);
                         if (params.sendEvent) {
                             $scope.externalEvents.onItemSelect(finalObj);
