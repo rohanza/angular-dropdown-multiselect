@@ -31,7 +31,7 @@ http://dotansimha.github.io/angularjs-dropdown-multiselect/
 1. Download the files
 	1. Using bower: <img src="http://benschwarz.github.io/bower-badges/badge@2x.png" width="130" height="30"> 
 	
-		Just run `bower install angularjs-dropdown-multiselect`
+		Just run `bower install angular-dropdown-multiselect`
 	2. Manually:
 		You can download the `.js` file directly or clone this repository.
 2. **Include lodash.js in your project.**
