@@ -15,7 +15,8 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
       events: '=',
       searchFilter: '=?',
       translationTexts: '=',
-      groupBy: '@'
+      groupBy: '@',
+      ngDisabled: '='
     },
     templateUrl: 'src/partials/dropdown-multiselect.html',
     link: function ($scope, $element, $attrs) {
