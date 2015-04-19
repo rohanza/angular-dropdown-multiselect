@@ -76,16 +76,44 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
       };
 
 
+      var find = function(collection, queryObj) {
+        if (angular.isArray(collection)) {
+          for (var i = 0; i < collection.length; i++) {
+            if (collection[i][$scope.settings.idProp] == queryObj[$scope.settings.idProp]) {
+              return collection[i];
+            }
+          }
+          return null;
+        } else {
+          if ($scope.selectedModel[$scope.settings.idProp] == queryObj[$scope.settings.idProp]) {
+            return angular.copy($scope.selectedModel);
+          }
+        }
+      };
+
+
+      var findIndex = function(collection, queryObj) {
+        if (angular.isArray(collection)) {
+          for (var i = 0; i < collection.length; i++) {
+            if (collection[i][$scope.settings.idProp] == queryObj[$scope.settings.idProp]) {
+              return i;
+            }
+          }
+        }
+        return -1;
+      };
+
+
       var getFinalObj = function(id) {
         var findObj = getFindObj(id);
-        var finalObj = _.find($scope.options, findObj);
-        return finalObj;
+        var finalObj = find($scope.options, findObj);
+        return angular.copy(finalObj);
       };
 
 
       var objExists = function(id) {
         var findObj = getFindObj(id);
-        return _.findIndex($scope.selectedModel, findObj) !== -1;
+        return findIndex($scope.selectedModel, findObj) !== -1;
       };
 
 
@@ -99,7 +127,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
         var target = e.target.parentElement;
         var parentFound = false;
         while (angular.isDefined(target) && target !== null && !parentFound) {
-          if (_.contains(target.className.split(' '), 'multiselect-parent') && !parentFound) {
+          if (target.className.indexOf('multiselect-parent') != -1 && !parentFound) {
             if (target === $scope.$dropdownTrigger) {
               parentFound = true;
             }
@@ -200,7 +228,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
 
       $scope.deselectItem = function(id) {
         var finalObj = getFinalObj(id);
-        $scope.selectedModel.splice(_.findIndex($scope.selectedModel, finalObj), 1);
+        $scope.selectedModel.splice(findIndex($scope.selectedModel, finalObj), 1);
         $scope.externalEvents.onItemDeselect(finalObj);
       };
 
