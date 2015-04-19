@@ -43,14 +43,14 @@ module.exports = function(grunt) {
           src: 'src/partials/**.html',
           dest: 'dist/template.js',
           options: {
-            module: 'angularjs-dropdown-multiselect'
+            module: 'angular-dropdown-multiselect'
           }
         }
       },
       concat: {
         dist: {
-          src: ['src/angularjs-dropdown-multiselect.js', 'dist/template.js'],
-          dest: 'dist/angularjs-dropdown-multiselect.min.js'
+          src: ['src/angular-dropdown-multiselect.js', 'dist/template.js'],
+          dest: 'dist/angular-dropdown-multiselect.min.js'
         }
       },
       buildcontrol: {
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         },
         pages: {
           options: {
-            remote: 'git@github.com:dotansimha/angularjs-dropdown-multiselect.git',
+            remote: 'git@github.com:alaingilbert/angular-dropdown-multiselect.git',
             branch: 'gh-pages'
           }
         }
@@ -112,8 +112,8 @@ module.exports = function(grunt) {
         },
         build: {
           files:  {},
-          src: 'dist/angularjs-dropdown-multiselect.min.js',
-          dest: 'dist/angularjs-dropdown-multiselect.min.js'
+          src: 'dist/angular-dropdown-multiselect.min.js',
+          dest: 'dist/angular-dropdown-multiselect.min.js'
         }
       },
       clean: ['dist/template.js']

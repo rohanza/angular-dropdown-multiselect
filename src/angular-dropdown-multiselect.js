@@ -1,6 +1,6 @@
 'use strict';
 
-var directiveModule = angular.module('angularjs-dropdown-multiselect', []);
+var directiveModule = angular.module('angular-dropdown-multiselect', []);
 
 directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
     '$compile', '$parse',
