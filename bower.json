@@ -1,8 +1,8 @@
 {
   "name": "angular-dropdown-multiselect",
-  "version": "2.0.1",
+  "version": "2.0.0",
   "authors": [
-    "Alain Gilbert <alain.gilbert.15@gmail.com>"
+    "Alain Gilbert <alain.gilbert.15@gmail.com>",
     "Dotan Simha <dotansimha@gmail.com>"
   ],
   "description": "AngularJS Dropdown Multiselect directive",
