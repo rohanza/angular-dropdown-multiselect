@@ -99,7 +99,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
         var parentFound = false;
         while (angular.isDefined(target) && target !== null && !parentFound) {
           if (_.contains(target.className.split(' '), 'multiselect-parent') && !parentFound) {
-            if (target === $dropdownTrigger) {
+            if (target === $scope.$dropdownTrigger) {
               parentFound = true;
             }
           }
@@ -220,7 +220,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
 
 
       (function constructor() {
-        var $dropdownTrigger = $element.children()[0];
+        $scope.$dropdownTrigger = $element.children()[0];
 
         $scope.externalEvents = {
           onItemSelect: angular.noop,
