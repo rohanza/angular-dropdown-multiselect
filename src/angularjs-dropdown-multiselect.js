@@ -286,6 +286,9 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
 
         if ($scope.settings.closeOnBlur) {
           $document.on('click', closeOnBlur);
+          $scope.$on('$destroy', function() {
+            $document.off('click', closeOnBlur)
+          });
         }
 
         $scope.externalEvents.onInitDone();
