@@ -20,13 +20,6 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
     templateUrl: 'src/partials/dropdown-multiselect.html',
     link: function ($scope, $element, $attrs) {
 
-      var clearObject = function(object) {
-        for (var prop in object) {
-          delete object[prop];
-        }
-      };
-
-
       var isModelEmpty = function() {
         return numberOfSelectedItem() === 0;
       };
@@ -172,7 +165,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
         }
 
         if ($scope.singleSelection) {
-          clearObject($scope.selectedModel);
+          scope.selectedModel = {};
         } else {
           $scope.selectedModel.splice(0, numberOfSelectedItem());
         }
@@ -190,7 +183,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
         }
         var finalObj = getFinalObj(id);
         if ($scope.singleSelection) {
-          clearObject($scope.selectedModel);
+          $scope.selectedModel = {};
           angular.extend($scope.selectedModel, finalObj);
           if (params.sendEvent) {
             $scope.externalEvents.onItemSelect(finalObj);
@@ -287,7 +280,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
 
         if ($scope.singleSelection) {
           if (angular.isArray($scope.selectedModel) && $scope.selectedModel.length === 0) {
-            clearObject($scope.selectedModel);
+            $scope.selectedModel = {};
           }
         }
 
