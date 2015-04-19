@@ -1,7 +1,7 @@
 var $compile, $rootScope;
 
 beforeEach(module('templates'));
-beforeEach(module('angularjs-dropdown-multiselect'));
+beforeEach(module('angular-dropdown-multiselect'));
 
 beforeEach(inject(function(_$compile_, _$rootScope_){
   $compile = _$compile_;
