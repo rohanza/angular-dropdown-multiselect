@@ -98,6 +98,19 @@ describe('selectItem', function() {
 
     expect(scope.model.length).toBe(1);
   });
+
+  it('Should put the selected item in model', function() {
+    var scope = $rootScope.$new();
+    scope.model = [];
+    scope.options = [{id: 'id1', label: 'label1'}, {id: 'id2', label: 'label2'}, {id: 'id3', label: 'label3'}];
+    element = $compile('<div ng-dropdown-multiselect="" options="options" selected-model="model"></div>')(scope);
+    $rootScope.$digest();
+    var isolated = element.isolateScope();
+
+    isolated.selectItem('id2');
+
+    expect(scope.model).toEqual([{id: 'id2', label: 'label2'}]);
+  });
 });
 
 
