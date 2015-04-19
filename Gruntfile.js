@@ -22,6 +22,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-build-control');
+	grunt.loadNpmTasks('grunt-angular-templates');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 
 	/**
 	Function that wraps everything to allow dynamically setting/changing grunt options and config later by grunt task. This init function is called once immediately (for using the default grunt options, config, and setup) and then may be called again AFTER updating grunt (command line) options.
@@ -34,10 +36,19 @@ module.exports = function(grunt) {
 		@toc 5.
 		*/
 		grunt.initConfig({
+			ngtemplates: {
+				app: {
+					src: 'src/partials/**.html',
+					dest: 'dist/template.js',
+					options: {
+						module: 'angularjs-dropdown-multiselect'
+					}
+				}
+			},
 			concat: {
-				devCss: {
-					src:    [],
-					dest:   []
+				dist: {
+					src:    ['src/angularjs-dropdown-multiselect.js', 'dist/template.js'],
+					dest:   'dist/angularjs-dropdown-multiselect.min.js'
 				}
 			},
 			buildcontrol: {
@@ -99,10 +110,11 @@ module.exports = function(grunt) {
 				},
 				build: {
 					files:  {},
-					src:    'src/angularjs-dropdown-multiselect.js',
+					src:    'dist/angularjs-dropdown-multiselect.min.js',
 					dest:   'dist/angularjs-dropdown-multiselect.min.js'
 				}
-			}
+			},
+			clean: ['dist/template.js']
 		});
 		
 		
@@ -112,7 +124,7 @@ module.exports = function(grunt) {
 		*/
 		// Default task(s).
 		// grunt.registerTask('default', ['jshint:beforeconcat', 'less:development', 'concat:devJs', 'concat:devCss']);
-		grunt.registerTask('default', ['jshint:beforeconcatQ', 'uglify:build']);
+		grunt.registerTask('default', ['jshint:beforeconcatQ', 'ngtemplates', 'concat:dist', 'uglify:build', 'clean']);
 	
 	}
 	init({});		//initialize here for defaults (init may be called again later within a task)

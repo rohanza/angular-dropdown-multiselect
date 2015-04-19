@@ -16,44 +16,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 translationTexts: '=',
                 groupBy: '@'
             },
-            template: function (element, attrs) {
-                var checkboxes = attrs.checkboxes ? true : false;
-                var groups = attrs.groupBy ? true : false;
-
-                var template = '<div class="multiselect-parent btn-group dropdown-multiselect">';
-                template += '<button type="button" class="dropdown-toggle" ng-class="settings.buttonClasses" ng-click="toggleDropdown()">{{getButtonText()}}&nbsp;<span class="caret"></span></button>';
-                template += '<ul class="dropdown-menu dropdown-menu-form" ng-style="{display: open ? \'block\' : \'none\', height : settings.scrollable ? settings.scrollableHeight : \'auto\' }" style="overflow: scroll" >';
-                template += '<li ng-hide="!settings.showCheckAll || settings.selectionLimit > 0"><a data-ng-click="selectAll()"><span class="glyphicon glyphicon-ok"></span>  {{texts.checkAll}}</a>';
-                template += '<li ng-show="settings.showUncheckAll"><a data-ng-click="deselectAll();"><span class="glyphicon glyphicon-remove"></span>   {{texts.uncheckAll}}</a></li>';
-                template += '<li ng-hide="(!settings.showCheckAll || settings.selectionLimit > 0) && !settings.showUncheckAll" class="divider"></li>';
-                template += '<li ng-show="settings.enableSearch"><div class="dropdown-header"><input type="text" class="form-control" style="width: 100%;" ng-model="searchFilter" placeholder="{{texts.searchPlaceholder}}" /></li>';
-                template += '<li ng-show="settings.enableSearch" class="divider"></li>';
-
-                if (groups) {
-                    template += '<li ng-repeat-start="option in orderedItems | filter: searchFilter" ng-show="getPropertyForObject(option, settings.groupBy) !== getPropertyForObject(orderedItems[$index - 1], settings.groupBy)" role="presentation" class="dropdown-header">{{ getGroupTitle(getPropertyForObject(option, settings.groupBy)) }}</li>';
-                    template += '<li ng-repeat-end role="presentation">';
-                } else {
-                    template += '<li role="presentation" ng-repeat="option in options | filter: searchFilter">';
-                }
-
-                template += '<a role="menuitem" tabindex="-1" ng-click="setSelectedItem(getPropertyForObject(option,settings.idProp))">';
-
-                if (checkboxes) {
-                    template += '<div class="checkbox"><label><input class="checkboxInput" type="checkbox" ng-click="checkboxClick($event, getPropertyForObject(option,settings.idProp))" ng-checked="isChecked(getPropertyForObject(option,settings.idProp))" /> {{getPropertyForObject(option, settings.displayProp)}}</label></div></a>';
-                } else {
-                    template += '<span data-ng-class="{\'glyphicon glyphicon-ok\': isChecked(getPropertyForObject(option,settings.idProp))}"></span> {{getPropertyForObject(option, settings.displayProp)}}</a>';
-                }
-
-                template += '</li>';
-
-                template += '<li class="divider" ng-show="settings.selectionLimit > 1"></li>';
-                template += '<li role="presentation" ng-show="settings.selectionLimit > 1"><a role="menuitem">{{selectedModel.length}} {{texts.selectionOf}} {{settings.selectionLimit}} {{texts.selectionCount}}</a></li>';
-
-                template += '</ul>';
-                template += '</div>';
-
-                element.html(template);
-            },
+            templateUrl: 'src/partials/dropdown-multiselect.html',
             link: function ($scope, $element, $attrs) {
                 var $dropdownTrigger = $element.children()[0];
                 
@@ -90,6 +53,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                     closeOnSelect: false,
                     buttonClasses: 'btn btn-default',
                     closeOnDeselect: false,
+                    checkboxes: $attrs.checkboxes || undefined,
                     groupBy: $attrs.groupBy || undefined,
                     groupByTextProvider: null,
                     smartButtonMaxItems: 0,
