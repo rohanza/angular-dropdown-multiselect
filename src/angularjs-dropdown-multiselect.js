@@ -182,17 +182,17 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
           params.sendEvent = true;
         }
         var finalObj = getFinalObj(id);
-        if ($scope.singleSelection) {
-          $scope.selectedModel = {};
-          angular.extend($scope.selectedModel, finalObj);
+        var sendEvent = function(item) {
           if (params.sendEvent) {
-            $scope.externalEvents.onItemSelect(finalObj);
+            $scope.externalEvents.onItemSelect(item);
           }
+        };
+        if ($scope.singleSelection) {
+          $scope.selectedModel = finalObj;
+          sendEvent(finalObj);
         } else if (!objExists(id) && !isSelectionLimitExceeded()) {
           $scope.selectedModel.push(finalObj);
-          if (params.sendEvent) {
-            $scope.externalEvents.onItemSelect(finalObj);
-          }
+          sendEvent(finalObj);
         }
       };
 
