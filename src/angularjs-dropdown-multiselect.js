@@ -150,8 +150,8 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                             var itemsText = [];
 
                             angular.forEach($scope.options, function (optionItem) {
-                                if ($scope.isChecked($scope.getPropertyForObject(optionItem, $scope.settings.idProp))) {
-                                    var displayText = $scope.getPropertyForObject(optionItem, $scope.settings.displayProp);
+                                if ($scope.isChecked(optionItem[$scope.settings.idProp])) {
+                                    var displayText = optionItem[$scope.settings.displayProp];
                                     var converterResponse = $scope.settings.smartButtonTextConverter(displayText, optionItem);
 
                                     itemsText.push(converterResponse ? converterResponse : displayText);
@@ -182,14 +182,6 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                     } else {
                         return $scope.texts.buttonDefaultText;
                     }
-                };
-
-                $scope.getPropertyForObject = function (object, property) {
-                    if (angular.isDefined(object) && object.hasOwnProperty(property)) {
-                        return object[property];
-                    }
-
-                    return '';
                 };
 
                 $scope.selectAll = function () {
