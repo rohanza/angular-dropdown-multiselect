@@ -1,4 +1,5 @@
 # generic (system) files/extensions we don't want
+*.swp
 *.seed
 *.log
 *.csv
