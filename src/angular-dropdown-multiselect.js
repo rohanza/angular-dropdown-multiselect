@@ -119,7 +119,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
 
       var isSelectionLimitExceeded = function() {
         return $scope.settings.selectionLimit > 0 &&
-          numberOfSelectedItem() > $scope.settings.selectionLimit;
+          numberOfSelectedItem() >= $scope.settings.selectionLimit;
       };
 
 
