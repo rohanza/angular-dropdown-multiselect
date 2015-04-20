@@ -18,7 +18,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
       groupBy: '@',
       ngDisabled: '='
     },
-    templateUrl: 'dropdown-multiselect.html',
+    templateUrl: 'src/partials/dropdown-multiselect.html',
     link: function ($scope, $element, $attrs) {
 
       var isModelEmpty = function() {
@@ -113,13 +113,19 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
 
       var objExists = function(id) {
         var findObj = getFindObj(id);
-        return findIndex($scope.selectedModel, findObj) !== -1;
+        var exists = false;
+        if ($scope.singleSelection) {
+          exists = $scope.selectedModel[$scope.settings.idProp] == id;
+        } else {
+          exists = findIndex($scope.selectedModel, findObj) !== -1;
+        }
+        return exists;
       };
 
 
       var isSelectionLimitExceeded = function() {
         return $scope.settings.selectionLimit > 0 &&
-          numberOfSelectedItem() > $scope.settings.selectionLimit;
+          numberOfSelectedItem() >= $scope.settings.selectionLimit;
       };
 
 
@@ -194,7 +200,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
         }
 
         if ($scope.singleSelection) {
-          scope.selectedModel = {};
+          $scope.selectedModel = {};
         } else {
           $scope.selectedModel.splice(0, numberOfSelectedItem());
         }
@@ -228,7 +234,11 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
 
       $scope.deselectItem = function(id) {
         var finalObj = getFinalObj(id);
-        $scope.selectedModel.splice(findIndex($scope.selectedModel, finalObj), 1);
+        if ($scope.singleSelection) {
+          $scope.selectedModel = {};
+        } else {
+          $scope.selectedModel.splice(findIndex($scope.selectedModel, finalObj), 1);
+        }
         $scope.externalEvents.onItemDeselect(finalObj);
       };
 
