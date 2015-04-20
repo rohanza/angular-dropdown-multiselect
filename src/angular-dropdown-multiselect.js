@@ -194,7 +194,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
         }
 
         if ($scope.singleSelection) {
-          scope.selectedModel = {};
+          $scope.selectedModel = {};
         } else {
           $scope.selectedModel.splice(0, numberOfSelectedItem());
         }
