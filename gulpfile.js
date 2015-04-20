@@ -28,7 +28,7 @@ gulp.task('default', function() {
   var app = gulp.src('src/*.js');
 
   var templates = gulp.src('src/partials/*.html')
-      .pipe(templateCache({module: 'angular-dropdown-multiselect'}));
+      .pipe(templateCache({module: 'angular-dropdown-multiselect', root: 'src/partials'}));
 
   return merge(app, templates)
       .pipe(concat('angular-dropdown-multiselect.min.js'))
