@@ -2,7 +2,7 @@
 
 angular.module('exampleApp', [
     'ngRoute',
-    'angularjs-dropdown-multiselect',
+    'angular-dropdown-multiselect',
     'hljs',
 	'ui.bootstrap'
 ]).
