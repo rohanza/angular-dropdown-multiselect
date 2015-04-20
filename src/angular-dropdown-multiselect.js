@@ -271,6 +271,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
         };
 
         $scope.settings = {
+          useFontAwesome: false,
           dynamicTitle: true,
           scrollable: false,
           scrollableHeight: '300px',
@@ -316,6 +317,10 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
         angular.extend($scope.texts, $scope.translationTexts);
 
         $scope.singleSelection = $scope.settings.selectionLimit === 1;
+
+        $scope.style = {};
+        $scope.style.check = $scope.settings.useFontAwesome ? 'fa fa-check' : 'glyphicon glyphicon-ok';
+        $scope.style.remove = $scope.settings.useFontAwesome ? 'fa fa-cross' : 'glyphicon glyphicon-remove';
 
         if ($scope.singleSelection) {
           if (angular.isArray($scope.selectedModel) && $scope.selectedModel.length === 0) {

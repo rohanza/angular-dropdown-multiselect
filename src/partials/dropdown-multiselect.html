@@ -4,10 +4,10 @@
 
   <ul class="dropdown-menu dropdown-menu-form" ng-style="{display: open ? 'block' : 'none', height: settings.scrollable ? settings.scrollableHeight : 'auto' }" style="overflow: scroll">
     <li ng-show="settings.showCheckAll && settings.selectionLimit == 0">
-      <a data-ng-click="selectAll()"><span class="fa fa-check"></span> {{texts.checkAll}}</a>
+      <a ng-click="selectAll()"><span ng-class="style.check"></span> {{texts.checkAll}}</a>
     </li>
     <li ng-show="settings.showUncheckAll">
-      <a data-ng-click="deselectAll();"><span class="fa fa-times"></span> {{texts.uncheckAll}}</a>
+      <a ng-click="deselectAll();"><span ng-class="style.remove"></span> {{texts.uncheckAll}}</a>
     </li>
 
     <li ng-show="(settings.showCheckAll && settings.selectionLimit == 0) || settings.showUncheckAll" class="divider"></li>
@@ -37,7 +37,7 @@
         </div>
 
         <div ng-if="!settings.checkboxes">
-          <span data-ng-class="{'fa fa-check': isChecked(option[settings.idProp])}"></span> {{option[settings.displayProp]}}
+          <span ng-class="isChecked(option[settings.idProp]) ? style.check : ''"></span> {{option[settings.displayProp]}}
         </div>
       </a>
     </li>
