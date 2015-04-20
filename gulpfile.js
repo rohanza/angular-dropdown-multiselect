@@ -30,8 +30,12 @@ gulp.task('default', function() {
   var templates = gulp.src('src/partials/*.html')
       .pipe(templateCache({module: 'angular-dropdown-multiselect', root: 'src/partials'}));
 
-  return merge(app, templates)
-      .pipe(concat('angular-dropdown-multiselect.min.js'))
+  var merged = merge(app, templates);
+
+  merged.pipe(concat('angular-dropdown-multiselect.js'))
+      .pipe(gulp.dest('dist'));
+
+  merged.pipe(concat('angular-dropdown-multiselect.min.js'))
       .pipe(uglify())
       .pipe(gulp.dest('dist'));
 });
