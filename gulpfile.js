@@ -3,6 +3,19 @@ var templateCache = require('gulp-angular-templatecache');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var merge = require('merge-stream');
+var ghPages = require('gulp-gh-pages');
+
+gulp.task('github', function() {
+  var options = {
+    remoteUrl: 'git@github.com:alaingilbert/angular-dropdown-multiselect.git',
+    branch: 'gh-pages',
+    push: true,
+  };
+
+  return gulp.src('pages/**/*')
+      .pipe(ghPages(options));
+});
+
 
 gulp.task('default', function() {
   var app = gulp.src('src/*.js');
