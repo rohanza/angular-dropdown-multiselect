@@ -1,4 +1,4 @@
-# AngularJS Dropdown Multiselect
+# Angular Dropdown Multiselect
 This directive gives you a Bootstrap Dropdown with the power of AngularJS directives.
 
 # Features
@@ -40,7 +40,3 @@ http://alaingilbert.github.io/angular-dropdown-multiselect/
 ## Usage and Documentation
 See the documentation and examples in the GitHub pages:
 http://alaingilbert.github.io/angular-dropdown-multiselect/
-
-## TODO:
-	- Feel free to send me more requests for features - open an issue with "feature request" tag - Thanks!
-	- Keyboard support.
