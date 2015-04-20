@@ -18,7 +18,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
       groupBy: '@',
       ngDisabled: '='
     },
-    templateUrl: 'src/partials/dropdown-multiselect.html',
+    templateUrl: 'dropdown-multiselect.html',
     link: function ($scope, $element, $attrs) {
 
       var isModelEmpty = function() {
