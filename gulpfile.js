@@ -4,6 +4,13 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var merge = require('merge-stream');
 var ghPages = require('gulp-gh-pages');
+var connect = require('gulp-connect');
+
+
+gulp.task('devserver', function() {
+  connect.server({livereload: true});
+});
+
 
 gulp.task('github', function() {
   var options = {
