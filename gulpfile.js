@@ -5,6 +5,7 @@ var concat = require('gulp-concat');
 var merge = require('merge-stream');
 var ghPages = require('gulp-gh-pages');
 var connect = require('gulp-connect');
+var sourcemaps = require('gulp-sourcemaps');
 
 
 gulp.task('devserver', function() {
@@ -35,7 +36,9 @@ gulp.task('default', function() {
   merged.pipe(concat('angular-dropdown-multiselect.js'))
       .pipe(gulp.dest('dist'));
 
-  merged.pipe(concat('angular-dropdown-multiselect.min.js'))
+  merged.pipe(sourcemaps.init())
+      .pipe(concat('angular-dropdown-multiselect.min.js'))
       .pipe(uglify())
+      .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest('dist'));
 });
