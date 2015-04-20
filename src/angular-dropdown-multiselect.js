@@ -113,7 +113,13 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
 
       var objExists = function(id) {
         var findObj = getFindObj(id);
-        return findIndex($scope.selectedModel, findObj) !== -1;
+        var exists = false;
+        if ($scope.singleSelection) {
+          exists = $scope.selectedModel[$scope.settings.idProp] == id;
+        } else {
+          exists = findIndex($scope.selectedModel, findObj) !== -1;
+        }
+        return exists;
       };
 
 
@@ -228,7 +234,11 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
 
       $scope.deselectItem = function(id) {
         var finalObj = getFinalObj(id);
-        $scope.selectedModel.splice(findIndex($scope.selectedModel, finalObj), 1);
+        if ($scope.singleSelection) {
+          $scope.selectedModel = {};
+        } else {
+          $scope.selectedModel.splice(findIndex($scope.selectedModel, finalObj), 1);
+        }
         $scope.externalEvents.onItemDeselect(finalObj);
       };
 
