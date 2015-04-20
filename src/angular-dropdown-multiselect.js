@@ -26,7 +26,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
       };
 
 
-      var getItemDisplayText = function(item) {
+      var getItemDisplayText = function(optionItem) {
         var displayText = optionItem[$scope.settings.displayProp];
         var converterResponse = $scope.settings.smartButtonTextConverter(displayText, optionItem);
         return converterResponse || displayText;
