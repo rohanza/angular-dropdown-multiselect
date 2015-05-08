@@ -9,7 +9,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
   return {
     restrict: 'AE',
     scope: {
-      selectedModel: '=',
+      ngModel: '=',
       options: '=',
       extraSettings: '=',
       events: '=',
@@ -36,9 +36,9 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
       var numberOfSelectedItem = function() {
         var totalSelected;
         if ($scope.singleSelection) {
-          totalSelected = ($scope.selectedModel !== null && angular.isDefined($scope.selectedModel[$scope.settings.idProp])) ? 1 : 0;
+          totalSelected = ($scope.ngModel !== null && angular.isDefined($scope.ngModel[$scope.settings.idProp])) ? 1 : 0;
         } else {
-          totalSelected = angular.isDefined($scope.selectedModel) ? $scope.selectedModel.length : 0;
+          totalSelected = angular.isDefined($scope.ngModel) ? $scope.ngModel.length : 0;
         }
         return totalSelected;
       };
@@ -85,8 +85,8 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
           }
           return null;
         } else {
-          if ($scope.selectedModel[$scope.settings.idProp] == queryObj[$scope.settings.idProp]) {
-            return angular.copy($scope.selectedModel);
+          if ($scope.ngModel[$scope.settings.idProp] == queryObj[$scope.settings.idProp]) {
+            return angular.copy($scope.ngModel);
           }
         }
       };
@@ -115,9 +115,9 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
         var findObj = getFindObj(id);
         var exists = false;
         if ($scope.singleSelection) {
-          exists = $scope.selectedModel[$scope.settings.idProp] == id;
+          exists = $scope.ngModel[$scope.settings.idProp] == id;
         } else {
-          exists = findIndex($scope.selectedModel, findObj) !== -1;
+          exists = findIndex($scope.ngModel, findObj) !== -1;
         }
         return exists;
       };
@@ -200,9 +200,9 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
         }
 
         if ($scope.singleSelection) {
-          $scope.selectedModel = {};
+          $scope.ngModel = {};
         } else {
-          $scope.selectedModel.splice(0, numberOfSelectedItem());
+          $scope.ngModel.splice(0, numberOfSelectedItem());
         }
 
         if (params.sendEvent) {
@@ -223,10 +223,10 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
           }
         };
         if ($scope.singleSelection) {
-          $scope.selectedModel = finalObj;
+          $scope.ngModel = finalObj;
           sendEvent(finalObj);
         } else if (!objExists(id) && !isSelectionLimitExceeded()) {
-          $scope.selectedModel.push(finalObj);
+          $scope.ngModel.push(finalObj);
           sendEvent(finalObj);
         }
       };
@@ -235,9 +235,9 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
       $scope.deselectItem = function(id) {
         var finalObj = getFinalObj(id);
         if ($scope.singleSelection) {
-          $scope.selectedModel = {};
+          $scope.ngModel = {};
         } else {
-          $scope.selectedModel.splice(findIndex($scope.selectedModel, finalObj), 1);
+          $scope.ngModel.splice(findIndex($scope.ngModel, finalObj), 1);
         }
         $scope.externalEvents.onItemDeselect(finalObj);
       };
@@ -250,9 +250,9 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
 
       $scope.isChecked = function (id) {
         if ($scope.singleSelection) {
-          return $scope.selectedModel !== null &&
-            angular.isDefined($scope.selectedModel[$scope.settings.idProp]) &&
-            $scope.selectedModel[$scope.settings.idProp] === id;
+          return $scope.ngModel !== null &&
+            angular.isDefined($scope.ngModel[$scope.settings.idProp]) &&
+            $scope.ngModel[$scope.settings.idProp] === id;
         }
         return objExists(id);
       };
@@ -323,8 +323,8 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document',
         $scope.style.remove = $scope.settings.useFontAwesome ? 'fa fa-cross' : 'glyphicon glyphicon-remove';
 
         if ($scope.singleSelection) {
-          if (angular.isArray($scope.selectedModel) && $scope.selectedModel.length === 0) {
-            $scope.selectedModel = {};
+          if (angular.isArray($scope.ngModel) && $scope.ngModel.length === 0) {
+            $scope.ngModel = {};
           }
         }
 
